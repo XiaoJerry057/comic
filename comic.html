@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAM! Comics - Your Superhero Store</title>
+    <style>
+        /* Global Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
+        
+        :root {
+            --primary: #FF3D00;
+            --secondary: #00A8FF;
+            --accent: #FFD600;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #f5f5f5;
+            color: var(--dark);
+            background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-top: 10px solid var(--primary);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--light);
+            padding: 15px 0;
+            border-bottom: 5px solid var(--dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: 3px 3px 0 var(--dark), 5px 5px 0 var(--accent);
+            letter-spacing: 2px;
+        }
+        
+        .search-bar {
+            display: flex;
+            flex-grow: 1;
+            margin: 0 30px;
+        }
+        
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 3px solid var(--dark);
+            border-radius: 30px 0 0 30px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-bar button {
+            background-color: var(--primary);
+            color: white;
+            border: 3px solid var(--dark);
+            border-left: none;
+            border-radius: 0 30px 30px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Bangers', cursive;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: var(--secondary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-selector, .cart {
+            margin-left: 20px;
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent);
+            color: var(--dark);
+            border: 2px solid var(--dark);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--dark);
+            border-top: 3px solid var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            position: relative;
+        }
+        
+        .nav-menu li a {
+            display: block;
+            color: var(--light);
+            text-decoration: none;
+            padding: 15px 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .nav-menu li a:hover {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .nav-menu li a::after {
+            content: '!';
+            color: var(--accent);
+            margin-left: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-menu li a:hover::after {
+            opacity: 1;
+        }
+        
+        /* Main Content */
+        .main-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            margin-right: 30px;
+            background-color: var(--light);
+            border: 3px solid var(--dark);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 5px 5px 0 var(--dark);
+        }
+        
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .sidebar h3::before, .sidebar h3::after {
+            content: '★';
+            color: var(--accent);
+            margin: 0 10px;
+        }
+        
+        .genre-list {
+            list-style: none;
+        }
+        
+        .genre-list li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .genre-list li a {
+            display: block;
+            padding: 10px 15px;
+            background-color: var(--light);
+            color: var(--dark);
+            text-decoration: none;
+            border: 2px solid var(--dark);
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .genre-list li a:hover {
+            background-color: var(--secondary);
+            color: var(--light);
+            transform: translateX(10px);
+        }
+        
+        .genre-list li a::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: -5px;
+            bottom: -5px;
+            background-color: var(--accent);
+            z-index: -1;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .genre-list li a:hover::before {
+            opacity: 1;
+        }
+        
+        /* Main Content Area */
+        .content {
+            flex-grow: 1;
+        }
+        
+        /* Banner */
+        .banner {
+            background-color: var(--secondary);
+            border: 5px solid var(--dark);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 5px 5px 0 var(--dark);
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="black" stroke-width="2"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.1;
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .banner-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .banner-comic {
+            position: relative;
+            width: 150px;
+            height: 230px;
+            border: 5px solid var(--dark);
+            border-radius: 10px;
+            background: white;
+            transform: rotate(-5deg);
+            box-shadow: 8px 8px 0 var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .banner-comic:nth-child(even) {
+            transform: rotate(5deg);
+        }
+        
+        .banner-comic:hover {
+            transform: rotate(0deg) scale(1.1);
+            z-index: 2;
+        }
+        
+        .banner-comic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .price-tag {
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 8px 12px;
+            border: 3px solid var(--dark);
+            border-radius: 50px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            transform: rotate(15deg);
+            box-shadow: 3px 3px 0 var(--dark);
+        }
+        
+        .banner h2 {
+            font-size: 3rem;
+            color: var(--light);
+            text-shadow: 5px 5px 0 var(--dark), 8px 8px 0 var(--accent);
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .banner p {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .banner-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 15px 30px;
+            border: 3px solid var(--dark);
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 5px 5px 0 var(--dark);
+        }
+        
+        .banner-button:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        
+        .banner-speech-bubble {
+            position: absolute;
+            background-color: var(--light);
+            border: 3px solid var(--dark);
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .banner-speech-bubble::after {
+            content: '';
+            position: absolute;
+            border-style: solid;
+        }
+        
+        .bubble-1 {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-10deg);
+        }
+        
+        .bubble-1::after {
+            top: 100%;
+            left: 20px;
+            border-width: 15px 10px 0;
+            border-color: var(--light) transparent transparent;
+        }
+        
+        .bubble-2 {
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(5deg);
+        }
+        
+        .bubble-2::after {
+            bottom: 100%;
+            right: 20px;
+            border-width: 0 10px 15px;
+            border-color: transparent transparent var(--light);
+        }
+        
+        /* Sound Effects */
+        .sound-effect {
+            position: absolute;
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            z-index: 3;
+            text-shadow: 2px 2px 0 var(--dark);
+        }
+        
+        .sound-effect-1 {
+            top: 10px;
+            left: 10px;
+        }
+        
+        .sound-effect-2 {
+            bottom: 10px;
+            right: 10px;
+        }
+        
+        /* Comic Strip Sections */
+        .comic-strip {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .section-header h3 {
+            font-size: 2rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--accent);
+            z-index: -1;
+        }
+        
+        .view-all {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 8px 15px;
+            border: 2px solid var(--dark);
+            border-radius: 5px;
+            text-decoration: none;
+            font-family: 'Bangers', cursive;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .view-all:hover {
+            background-color: var(--secondary);
+        }
+        
+        .comic-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            background-color: var(--light);
+            border: 3px solid var(--dark);
+            border-radius: 10px;
+            box-shadow: 5px 5px 0 var(--dark);
+        }
+        
+        .comic-scroll::-webkit-scrollbar {
+            height: 10px;
+        }
+        
+        .comic-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        
+        .comic-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        .comic-item {
+            flex: 0 0 200px;
+            scroll-snap-align: start;
+            background-color: var(--light);
+            border: 3px solid var(--dark);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 3px 3px 0 var(--dark);
+        }
+        
+        .comic-item:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 10px 10px 0 var(--dark);
+        }
+        
+        .comic-image {
+            width: 100%;
+            height: 250px;
+            background-color: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .comic-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .comic-item:hover .comic-image img {
+            transform: scale(1.05);
+        }
+        
+        .comic-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 5px 10px;
+            border: 2px solid var(--dark);
+            border-radius: 5px;
+            font-family: 'Bangers', cursive;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+        
+        .comic-info {
+            padding: 15px;
+        }
+        
+        .comic-title {
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .comic-author {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .comic-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 40px 0 20px;
+            border-top: 5px solid var(--accent);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .footer-column ul li a::before {
+            content: '→';
+            color: var(--accent);
+            margin-right: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+            padding-left: 15px;
+        }
+        
+        .footer-column ul li a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--light);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--light);
+        }
+        
+        .social-links a:hover {
+            background-color: transparent;
+            color: var(--light);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .search-bar {
+                width: 100%;
+                margin: 15px 0;
+            }
+            
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner h2 {
+                font-size: 2rem;
+            }
+            
+            .banner p {
+                font-size: 1.2rem;
+            }
+            
+            .banner-comic {
+                width: 120px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">BAM! Comics</div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for comics...">
+                <button>SEARCH!</button>
+            </div>
+            
+            <div class="header-actions">
+                <div class="language-selector">
+                    <select>
+                        <option>EN</option>
+                        <option>ES</option>
+                        <option>FR</option>
+                    </select>
+                </div>
+                
+                <div class="cart">
+                    <span>🛒</span>
+                    <div class="cart-count">3</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">New Comics</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">Cart</a></li>
+                <li><a href="#">Checkout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Comic Genres</h3>
+            <ul class="genre-list">
+                <li><a href="#">Superhero</a></li>
+                <li><a href="#">Manga</a></li>
+                <li><a href="#">Sci-Fi</a></li>
+                <li><a href="#">Fantasy</a></li>
+                <li><a href="#">Kids</a></li>
+                <li><a href="#">Romance</a></li>
+                <li><a href="#">Horror</a></li>
+                <li><a href="#">Graphic Novels</a></li>
+                <li><a href="#">Indie Comics</a></li>
+                <li><a href="#">Classic Comics</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Content -->
+        <main class="content">
+            <!-- Banner -->
+            <section class="banner">
+                <div class="banner-content">
+                    <div class="banner-images">
+                        <div class="banner-comic">
+                            <img src="https://i.pinimg.com/736x/df/c0/88/dfc088f5e9ca06f3250d6088ac4d3b16.jpg" alt="Superhero Comic">
+                            <div class="price-tag">50% OFF</div>
+                        </div>
+                        <div class="banner-comic">
+                            <img src="https://i.pinimg.com/736x/1c/c4/f3/1cc4f34d216f2fb9f57943d961ecc22d.jpg" alt="Manga Comic">
+                            <div class="price-tag">30% OFF</div>
+                        </div>
+                        <div class="banner-comic">
+                            <img src="https://i.pinimg.com/1200x/59/d1/1a/59d11a137aa72a16f8a085c3e90af706.jpg" alt="Sci-Fi Comic">
+                            <div class="price-tag">40% OFF</div>
+                        </div>
+                    </div>
+                    <h2>Mega Comic Sale!</h2>
+                    <p>Limited Time Offers - Up to 50% Off!</p>
+                    <a href="#" class="banner-button">Shop Now!</a>
+                </div>
+                
+                <div class="banner-speech-bubble bubble-1">Wow!</div>
+                <div class="banner-speech-bubble bubble-2">Zap!</div>
+                
+                <div class="sound-effect sound-effect-1">BAM!</div>
+                <div class="sound-effect sound-effect-2">POW!</div>
+            </section>
+            
+            <!-- New Arrivals -->
+            <section class="comic-strip">
+                <div class="section-header">
+                    <h3>New Arrivals</h3>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                
+                <div class="comic-scroll">
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/J6lQ2yK.png" alt="Comic Cover">
+                            <div class="comic-badge">NEW!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Superhero Adventures</h4>
+                            <p class="comic-author">By John Doe</p>
+                            <div class="comic-price">
+                                <span class="price">$12.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/X8mYzWq.png" alt="Comic Cover">
+                            <div class="comic-badge">NEW!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Space Warriors</h4>
+                            <p class="comic-author">By Jane Smith</p>
+                            <div class="comic-price">
+                                <span class="price">$9.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/VvP4rQk.png" alt="Comic Cover">
+                            <div class="comic-badge">NEW!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Mystery Island</h4>
+                            <p class="comic-author">By Alex Johnson</p>
+                            <div class="comic-price">
+                                <span class="price">$14.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/5qYXWQj.jpg" alt="Comic Cover">
+                            <div class="comic-badge">NEW!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Robot Revolution</h4>
+                            <p class="comic-author">By Sam Wilson</p>
+                            <div class="comic-price">
+                                <span class="price">$11.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/9pDmR4t.jpg" alt="Comic Cover">
+                            <div class="comic-badge">NEW!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Fantasy Quest</h4>
+                            <p class="comic-author">By Emily Brown</p>
+                            <div class="comic-price">
+                                <span class="price">$10.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Staff Picks -->
+            <section class="comic-strip">
+                <div class="section-header">
+                    <h3>Staff Picks</h3>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                
+                <div class="comic-scroll">
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/LkL1OQZ.jpg" alt="Comic Cover">
+                            <div class="comic-badge">PICK!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Dark Nights</h4>
+                            <p class="comic-author">By Mike Taylor</p>
+                            <div class="comic-price">
+                                <span class="price">$13.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/Qt3B4fD.jpg" alt="Comic Cover">
+                            <div class="comic-badge">PICK!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Ocean Depths</h4>
+                            <p class="comic-author">By Sarah Lee</p>
+                            <div class="comic-price">
+                                <span class="price">$8.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/rY9qKJx.jpg" alt="Comic Cover">
+                            <div class="comic-badge">PICK!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Time Travelers</h4>
+                            <p class="comic-author">By Chris Evans</p>
+                            <div class="comic-price">
+                                <span class="price">$15.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/J6lQ2yK.png" alt="Comic Cover">
+                            <div class="comic-badge">PICK!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Jungle King</h4>
+                            <p class="comic-author">By Lisa Wong</p>
+                            <div class="comic-price">
+                                <span class="price">$9.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/X8mYzWq.png" alt="Comic Cover">
+                            <div class="comic-badge">PICK!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Cyber City</h4>
+                            <p class="comic-author">By David Kim</p>
+                            <div class="comic-price">
+                                <span class="price">$12.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Bestsellers -->
+            <section class="comic-strip">
+                <div class="section-header">
+                    <h3>Bestsellers</h3>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                
+                <div class="comic-scroll">
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/VvP4rQk.png" alt="Comic Cover">
+                            <div class="comic-badge">HOT!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Galactic War</h4>
+                            <p class="comic-author">By Robert Jones</p>
+                            <div class="comic-price">
+                                <span class="price">$16.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/5qYXWQj.jpg" alt="Comic Cover">
+                            <div class="comic-badge">HOT!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Ninja Academy</h4>
+                            <p class="comic-author">By Ken Watanabe</p>
+                            <div class="comic-price">
+                                <span class="price">$10.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/9pDmR4t.jpg" alt="Comic Cover">
+                            <div class="comic-badge">HOT!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Magic School</h4>
+                            <p class="comic-author">By Emma Stone</p>
+                            <div class="comic-price">
+                                <span class="price">$14.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/LkL1OQZ.jpg" alt="Comic Cover">
+                            <div class="comic-badge">HOT!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Zombie Apocalypse</h4>
+                            <p class="comic-author">By George Romero</p>
+                            <div class="comic-price">
+                                <span class="price">$11.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <div class="comic-image">
+                            <img src="https://i.imgur.com/Qt3B4fD.jpg" alt="Comic Cover">
+                            <div class="comic-badge">HOT!</div>
+                        </div>
+                        <div class="comic-info">
+                            <h4 class="comic-title">Wild West</h4>
+                            <p class="comic-author">By Clint Eastwood</p>
+                            <div class="comic-price">
+                                <span class="price">$9.99</span>
+                                <button class="add-to-cart">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Locations</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+                    
+                    <div class="social-links">
+                        <a href="#">F</a>
+                        <a href="#">T</a>
+                        <a href="#">I</a>
+                        <a href="#">Y</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 BAM! Comics. All rights reserved. POW!</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
